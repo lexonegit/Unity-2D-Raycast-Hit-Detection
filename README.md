@@ -12,7 +12,9 @@
 **I recommend looking at the included ExampleProject for a better understanding**
 
 <img src="https://i.imgur.com/nfnQHMc.gif" width="60%">
+
+<img src="https://i.imgur.com/2se7JVq.png" width="60%">
+
 <img src="https://i.imgur.com/IpQZ3an.gif" width="60%">
 <img src="https://i.imgur.com/l0Xc7hC.gif" width="60%">
 
-<img src="https://i.imgur.com/2se7JVq.png" width="60%">
