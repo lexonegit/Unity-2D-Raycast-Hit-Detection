@@ -11,7 +11,8 @@
 
 **I recommend looking at the included ExampleProject for a better understanding**
 
-<img src="https://i.imgur.com/XnzxyRV.gif" width="50%">
-<img src="https://i.imgur.com/UIQXQXm.gif" width="50%">
-<img src="https://i.imgur.com/CVXZmK9.gif" width="50%">
-<img src="https://i.imgur.com/NhB7Vlr.png" width="50%">
+<img src="https://i.imgur.com/nfnQHMc.gif" width="60%">
+<img src="https://i.imgur.com/IpQZ3an.gif" width="60%">
+<img src="https://i.imgur.com/l0Xc7hC.gif" width="60%">
+
+<img src="https://i.imgur.com/2se7JVq.png" width="60%">
