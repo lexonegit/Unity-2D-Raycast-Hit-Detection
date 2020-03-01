@@ -158,10 +158,8 @@ public class Sensors : MonoBehaviour
         //Iterate results
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.transform == target) //Ignore self (if there is a collider attached to target transform)
-                continue;
-
-            if (hit.collider != null)
+            //Check if collider exists and is not the collider attached to target transform (self)
+            if (hit.collider != null && hit.collider.transform != target)
             {
                 hitDetected = true;
                 HandleHit(hit);
