@@ -9,9 +9,10 @@ public class Sensors : MonoBehaviour
     [Header("Options")]
     [Header("Experiment with these settings to find out what works the best")]
 
-    [Tooltip("Raycast when distance between endPoint and lastPosition[endPoint] is more than this value (0 = ignore) (Higher = more performant but raycasting is less frequent and thus less accurate)")]
-    [Range(0, 2.5f)]
-    public float minDistanceBetweenRaycasts = 0f;
+    [Tooltip("Raycast every N FixedUpdate iteration frame (1 = default) (Higher = more performant but raycasting is less frequent and thus less accurate) Increasing this can cause slightly inconsistent results but it shouldn't matter too much")]
+    [Range(1, 8)]
+    public int raycastRate = 1;
+
     [Tooltip("How many sensor points should there be along the start and end point (Higher = less performant but more accurate)")]
     public int sensorCount = 3;
     public bool playOnStart = true;
@@ -74,10 +75,17 @@ public class Sensors : MonoBehaviour
         playing = false;
     }
 
+    public int frames = 0;
     private void FixedUpdate()
     {
         if (!playing)
             return;
+
+        frames++;
+        if (frames % raycastRate != 0)
+            return;
+
+        frames = 0;
 
         RaycastProcedure();
     }
@@ -118,17 +126,13 @@ public class Sensors : MonoBehaviour
         //3. Intersection bottom raycasts
         //4. Vertical raycasts
 
-        //Min distance limiter
-        if (Vector2.Distance(endPoint.position, lastPositions[sensorCount - 1]) < minDistanceBetweenRaycasts)
-            return;
-
         for (int i = 0; i < sensors.Length; ++i)
         {
             Vector2 currentPosition = GetTransformPoint(sensors[i]);
 
             //Horizontal
             if (horizontalRaycasts)
-                Raycast(lastPositions[i], currentPosition, RaycastType.Horizontal); 
+                Raycast(lastPositions[i], currentPosition, RaycastType.Horizontal);
 
             //Raycast in intersection shape ( \ shape ) Top-to-Bottom
             if (intersectionRaycastsTop && i > 0)
@@ -144,7 +148,7 @@ public class Sensors : MonoBehaviour
 
         //Raycast from startPoint to endPoint (Vertical)
         if (verticalRaycasts)
-            Raycast(GetTransformPoint(sensors[0]), GetTransformPoint(sensors[sensorCount - 1]), RaycastType.Vertical);
+            Raycast(lastPositions[0], lastPositions[sensorCount - 1], RaycastType.Vertical);
     }
 
     private RaycastHit2D[] hits;
@@ -197,12 +201,11 @@ public class Sensors : MonoBehaviour
 
     }
 
-
     private HashSet<Collider2D> hitObjects = new HashSet<Collider2D>();
     private void HandleHit(RaycastHit2D hit)
     {
         //Ignore objects that have already been hit
-        if (hitObjects.Contains(hit.collider)) 
+        if (hitObjects.Contains(hit.collider))
             return;
         else
             hitObjects.Add(hit.collider);
@@ -223,9 +226,6 @@ public class Sensors : MonoBehaviour
         // You probably want to implement a interface or something here //
         //////////////////////////////////////////////////////////////////
 
-        // Quick example (you should replace this with an interface)
-        if (hit.collider.GetComponent<TestObject>() != null)
-            hit.collider.GetComponent<TestObject>().ReceiveHit();
 
     }
 
