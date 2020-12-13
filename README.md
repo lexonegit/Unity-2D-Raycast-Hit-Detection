@@ -11,7 +11,7 @@
 
 **I recommend looking at the included ExampleProject for a better understanding**
 
-- 4 levels of detection quality
+- This gif shows the 4 levels of detection complexity
 
 <img src="https://i.imgur.com/nfnQHMc.gif" width="60%">
 
